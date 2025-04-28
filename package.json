@@ -1,0 +1,15 @@
+{
+  "name": "simple-api-with-nodejs",
+  "version": "1.0.0",
+  "description": "CareerEx provided Backend Web Development with JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Iygeal Anozie",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
