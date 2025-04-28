@@ -5,7 +5,15 @@ const express = require('express');
 // Create an instance of express
 const app = express();
 
-// Use express.json() as middleware to parse JSON data
+// Create an environment variable for port
+const port = process.env.PORT || 5000;
+
+// Start the server and listen for requests on the specified port
+app.listen(port, () => {
+  console.log(`Server started running on ${port}`);
+});
+
+// Use express.json() as middleware to handle incoming POST requests
 app.use(express.json());
 
 // Use the array as a global variable for all assignments
@@ -211,3 +219,12 @@ const drugs = [
     manufacturer: 'Nature’s Bounty',
   },
 ];
+
+// 1. API route to get all drugs which are antibiotics
+app.get('/drugs/antibiotics', (request, response) => {
+  const antibiotics = drugs.filter((each) => {
+    return each.category === 'Antibiotic';
+  });
+
+  response.send(antibiotics);
+});
