@@ -224,8 +224,16 @@ const drugs = [
 // map to return only the names for cleaner output
 app.get('/drugs/antibiotics', (request, response) => {
   const antibiotics = drugs
-  .filter(each => each.category === 'Antibiotic')
-  .map(each => each.name);
+    .filter((each) => each.category === 'Antibiotic')
+    .map((each) => each.name);
 
   response.send(antibiotics);
+});
+
+// 2. Return an array of all drug names converted to lowercase
+app.get('/drugs/names', (request, response) => {
+  const drugNames = drugs.map((each) => each.name.toLowerCase());
+
+  // Send the response to the client
+  response.send(drugNames);
 });
