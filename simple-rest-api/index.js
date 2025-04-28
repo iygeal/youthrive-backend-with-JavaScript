@@ -220,11 +220,12 @@ const drugs = [
   },
 ];
 
-// 1. API route to get all drugs which are antibiotics
+// 1. API route to get all drugs which are antibiotics,
+// map to return only the names for cleaner output
 app.get('/drugs/antibiotics', (request, response) => {
-  const antibiotics = drugs.filter((each) => {
-    return each.category === 'Antibiotic';
-  });
+  const antibiotics = drugs
+  .filter(each => each.category === 'Antibiotic')
+  .map(each => each.name);
 
   response.send(antibiotics);
 });
