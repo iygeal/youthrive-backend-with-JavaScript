@@ -264,3 +264,64 @@ app.get('/drugs/names-manufacturers', (request, response) => {
   });
   response.json(namesAndManufacturers);
 });
+
+// 5. GET /drugs/prescription
+// Get all drugs where isPrescription is true
+
+app.get('/drugs/prescription', (request, response) => {
+  const prescriptionDrugs = drugs
+    .filter((each) => each.isPrescriptionOnly === true)
+    .map((each) => each.name);
+
+  response.json(prescriptionDrugs);
+});
+
+// 6. GET /drugs/formatted: Return a new array where each item is a string
+// like "Drug: [name] - [dosageMg]mg"
+
+app.get('/drugs/formatted', (request, response) => {
+  const formattedDrugs = drugs.map(
+    (each) => `Drug: [${each.name}] - [${each.dosageMg}]mg`
+  );
+
+  response.json(formattedDrugs);
+});
+
+// 7.GET /drugs/low-stock
+// Return all drugs where stock is less than 50.
+
+app.get('/drugs/low-stock', (request, response) => {
+  const lowStockDrugs = drugs
+    .filter((each) => each.stock < 50)
+    .map((each) => each.name);
+  response.json(lowStockDrugs);
+});
+
+// 8. GET /drugs/non-prescription
+// Return all drugs where isPrescription is false
+app.get('/drugs/non-prescription', (request, response) => {
+  const nonPrescriptionDrugs = drugs
+    .filter((each) => each.isPrescriptionOnly === false)
+    .map((each) => each.name);
+  response.json(nonPrescriptionDrugs);
+});
+
+// 9.POST /drugs/manufacturer-count
+// Accept a manufacturer in the body and
+// return how many drugs are produced by that manufacturer.
+
+app.post('/drugs/manufacturer-count', (request, response) => {
+  const { manufacturer } = request.body;
+  const count = drugs.filter(
+    (each) => each.manufacturer === manufacturer
+  ).length;
+  response.json(count);
+});
+
+// 10. GET /drugs/count-analgesics
+// Count and return how many drugs have the category "Analgesic".
+
+app.get('/drugs/count-analgesics', (request, response) => {
+  const count = drugs.filter((each) => each.category === 'Analgesic').length;
+  response.json(count);
+});
