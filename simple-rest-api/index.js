@@ -227,7 +227,7 @@ app.get('/drugs/antibiotics', (request, response) => {
     .filter((each) => each.category === 'Antibiotic')
     .map((each) => each.name);
 
-  response.send(antibiotics);
+  response.json(antibiotics);
 });
 
 // 2. Return an array of all drug names converted to lowercase
@@ -235,19 +235,32 @@ app.get('/drugs/names', (request, response) => {
   const drugNames = drugs.map((each) => each.name.toLowerCase());
 
   // Send the response to the client
-  response.send(drugNames);
+  response.json(drugNames);
 });
-
 
 // 3. POST /drugs/by-category: accept a category in the body
 // and return all drugs under that category
 app.post('/drugs/by-category', (request, response) => {
+  // Access the category from the request body
   const { category } = request.body;
+
+  // Filter the drugs based on the requested category
   const drugsByCategory = drugs
     .filter((each) => each.category === category)
 
     // Map to return only the names for cleaner output
     .map((each) => each.name);
 
-  response.send(drugsByCategory);
+  response.json(drugsByCategory);
+});
+
+// 4. GET /drugs/names-manufacturers: return an array of all drug names and manufacturers
+app.get('/drugs/names-manufacturers', (request, response) => {
+  const namesAndManufacturers = drugs.map((each) => {
+    return {
+      name: each.name,
+      manufacturer: each.manufacturer,
+    };
+  });
+  response.json(namesAndManufacturers);
 });
