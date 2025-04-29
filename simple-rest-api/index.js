@@ -237,3 +237,17 @@ app.get('/drugs/names', (request, response) => {
   // Send the response to the client
   response.send(drugNames);
 });
+
+
+// 3. POST /drugs/by-category: accept a category in the body
+// and return all drugs under that category
+app.post('/drugs/by-category', (request, response) => {
+  const { category } = request.body;
+  const drugsByCategory = drugs
+    .filter((each) => each.category === category)
+
+    // Map to return only the names for cleaner output
+    .map((each) => each.name);
+
+  response.send(drugsByCategory);
+});
